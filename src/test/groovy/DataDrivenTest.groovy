@@ -23,21 +23,22 @@ class DataDrivenTest {
     }
 
     @Test
-    @UseDataProvider("data_provider_login_form")
-    void "DDT test"(String username, String password){
+    @UseDataProvider('data_provider_login_form')
+    void 'DDT login form test'(String username, String password){
         open app_url_v1
         dataDrivenPage.fillLoginForm(username, password)
         dataDrivenPage.checkRememberMe()
         dataDrivenPage.clickLoginButton()
+        dataDrivenPage.checkError()
     }
 
     @DataProvider
     static Object[][] data_provider_login_form() {
         [
-                ['Username1', "pass1"],
-                ['Username2', "pass2"],
-                ['Username3', "pass3"],
-                ['Username4', "pass4"],
+                ['', ''],
+                ['username', ''],
+                ['', 'password'],
+                ['username', 'password'],
         ]
     }
 
