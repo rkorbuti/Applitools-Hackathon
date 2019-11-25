@@ -12,13 +12,15 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <groovyVersion>2.4.9</groovyVersion>
         <junitVersion>4.12</junitVersion>
+        <junit.data.driven.provider.version>1.10.0</junit.data.driven.provider.version>
+        <selenide.version>5.5.0</selenide.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.codeborne</groupId>
             <artifactId>selenide</artifactId>
-            <version>5.5.0</version>
+            <version>${selenide.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -27,11 +29,15 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>com.tngtech.java</groupId>
+            <artifactId>junit-dataprovider</artifactId>
+            <version>${junit.data.driven.provider.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
             <version>${groovyVersion}</version>
         </dependency>
     </dependencies>
-
-
 </project>
