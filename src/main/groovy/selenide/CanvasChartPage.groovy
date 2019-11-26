@@ -1,3 +1,5 @@
+package selenide
+
 import static com.codeborne.selenide.Selenide.$
 
 class CanvasChartPage {
