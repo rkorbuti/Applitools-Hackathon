@@ -1,3 +1,5 @@
+package selenide
+
 import com.codeborne.selenide.Configuration
 import org.junit.Before
 import org.junit.Test
