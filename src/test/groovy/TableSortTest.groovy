@@ -1,9 +1,7 @@
 import com.codeborne.selenide.Configuration
-import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
-import static com.codeborne.selenide.Selenide.close
 import static com.codeborne.selenide.Selenide.open
 
 class TableSortTest {
@@ -24,10 +22,5 @@ class TableSortTest {
         tableSortPage.verifyAmountColumnIsUnsorted()
         tableSortPage.clickAmountHeader()
         tableSortPage.verifyAmountColumnIsSorted()
-    }
-
-    @After
-    void tearDown(){
-        close()
     }
 }
