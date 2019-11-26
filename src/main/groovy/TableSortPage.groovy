@@ -3,12 +3,6 @@ import static com.codeborne.selenide.Selenide.$$x
 
 class TableSortPage {
 
-    static void proceedLogin() {
-        $("#username").sendKeys('username')
-        $("#password").sendKeys('password')
-        $("#log-in").click()
-    }
-
     static void clickAmountHeader() {
         $("#amount").click()
     }

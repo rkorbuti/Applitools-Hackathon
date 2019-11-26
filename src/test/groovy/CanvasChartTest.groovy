@@ -4,9 +4,9 @@ import org.junit.Test
 
 import static com.codeborne.selenide.Selenide.open
 
-class TableSortTest {
+class CanvasChartTest {
 
-    private TableSortPage tableSortPage = new TableSortPage()
+    private CanvasChartPage canvasChartPage = new CanvasChartPage()
     private LoginPage loginPage = new LoginPage()
 
     final static String app_url_v1 = 'https://demo.applitools.com/hackathon.html'
@@ -17,11 +17,12 @@ class TableSortTest {
     }
 
     @Test
-    void 'Table sort test'() {
+    void 'Canvas chart test'() {
         open app_url_v1
         loginPage.proceedLogin()
-        tableSortPage.verifyAmountColumnIsUnsorted()
-        tableSortPage.clickAmountHeader()
-        tableSortPage.verifyAmountColumnIsSorted()
+        canvasChartPage.clickCompareExpenses()
+        canvasChartPage.verifyChart()
+        canvasChartPage.clickShowDataForNextYear()
+        canvasChartPage.verifyAddedDataInChart(2019)
     }
 }
