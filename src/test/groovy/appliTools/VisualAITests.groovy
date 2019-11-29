@@ -26,7 +26,7 @@ class VisualAITests {
     private EyesRunner runner
     private Eyes eyes
     private WebDriver driver
-    long date = new Date().getTime()
+    String date = new Date().getTime().toString()
     private BatchInfo batchInfo_DDT_test = new BatchInfo('DDT login form test ' + date)
     private RectangleSize rectangleSize = new RectangleSize(1200, 700)
     private String appName = 'AppliTools App'
