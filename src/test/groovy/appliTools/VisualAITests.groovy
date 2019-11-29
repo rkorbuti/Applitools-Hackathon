@@ -11,19 +11,23 @@ import com.tngtech.java.junit.dataprovider.DataProviderRunner
 import com.tngtech.java.junit.dataprovider.UseDataProvider
 import org.junit.After
 import org.junit.Before
+import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.runners.MethodSorters
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(DataProviderRunner.class)
 class VisualAITests {
 
     private EyesRunner runner
     private Eyes eyes
     private WebDriver driver
-    private BatchInfo batchInfo_DDT_test = new BatchInfo('DDT login form test')
+    long date = new Date().getTime()
+    private BatchInfo batchInfo_DDT_test = new BatchInfo('DDT login form test ' + date)
     private RectangleSize rectangleSize = new RectangleSize(1200, 700)
     private String appName = 'AppliTools App'
     private final static String app_url_v1 = 'https://demo.applitools.com/hackathon.html'
@@ -46,16 +50,16 @@ class VisualAITests {
     }
 
     @Test
-    void 'Login Page Test'() {
-        eyes.open(driver, appName, 'Login Page Test', rectangleSize)
+    void 'Login Page Test for app version 1'() {
+        eyes.open(driver, appName, 'Login Page Test for app version 1', rectangleSize)
         driver.get app_url_v1
         eyes.checkWindow 'Login Page'
         eyes.closeAsync()
     }
 
     @Test
-    void 'Login Page Test Version 2'() {
-        eyes.open(driver, appName, 'Login Page Test Version 2', rectangleSize)
+    void 'Login Page Test for app version 2'() {
+        eyes.open(driver, appName, 'Login Page Test version 2', rectangleSize)
         driver.get app_url_v2
         eyes.checkWindow 'Login Page'
         eyes.closeAsync()
@@ -64,7 +68,7 @@ class VisualAITests {
     @Test
     @UseDataProvider('data_provider_login_form')
     void 'DDT login form test'(String username, String password) {
-        batchInfo_DDT_test.setId('gl_login_test')
+        batchInfo_DDT_test.setId(date)
         eyes.setBatch(batchInfo_DDT_test)
         String test_name = 'DDT login form test ' + getTestNameDDT(username, password)
         eyes.open driver, appName, test_name, rectangleSize
