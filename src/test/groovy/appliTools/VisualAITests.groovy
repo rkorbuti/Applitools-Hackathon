@@ -26,9 +26,10 @@ class VisualAITests {
     private EyesRunner runner
     private Eyes eyes
     private WebDriver driver
-    static final String date = new Date().getTime().toString()
+    private static final String date = new Date().getTime().toString()
     private BatchInfo batchInfo_DDT_test = new BatchInfo('DDT login form test ' + date)
     private BatchInfo batchInfo_Login_test = new BatchInfo('Login page test ' + date)
+    private BatchInfo batchInfo_Dynamic_test = new BatchInfo('Dynamic content test ' + date)
     private RectangleSize rectangleSize = new RectangleSize(1200, 700)
     private String appName = 'AppliTools App'
     private final static String app_url_v1 = 'https://demo.applitools.com/hackathon.html'
@@ -97,6 +98,46 @@ class VisualAITests {
         eyes.checkWindow 'Main Page unsorted'
         driver.findElement(By.id('amount')).click()
         eyes.checkWindow 'Main Page sorted'
+        eyes.closeAsync()
+    }
+
+    @Test
+    void 'Canvas chart test'() {
+        eyes.open(driver, appName, 'Canvas chart test', rectangleSize)
+        driver.get app_url_v1
+        driver.findElement(By.id('username')).sendKeys('username')
+        driver.findElement(By.id('password')).sendKeys('password')
+        driver.findElement(By.id('log-in')).click()
+        driver.findElement(By.id('showExpensesChart')).click()
+        eyes.checkWindow 'Default Chart'
+        driver.findElement(By.id('addDataset')).click()
+        eyes.checkWindow '2019 Chart'
+        eyes.closeAsync()
+    }
+
+    @Test
+    void 'Dynamic content test V1'() {
+        batchInfo_Dynamic_test.setId(date)
+        eyes.setBatch(batchInfo_Dynamic_test)
+        eyes.open(driver, appName, 'Dynamic content test V1', rectangleSize)
+        driver.get app_url_ad_v1
+        driver.findElement(By.id('username')).sendKeys('username')
+        driver.findElement(By.id('password')).sendKeys('password')
+        driver.findElement(By.id('log-in')).click()
+        eyes.checkWindow 'Check Ad'
+        eyes.closeAsync()
+    }
+
+    @Test
+    void 'Dynamic content test V2'() {
+        batchInfo_Dynamic_test.setId(date)
+        eyes.setBatch(batchInfo_Dynamic_test)
+        eyes.open(driver, appName, 'Dynamic content test V2', rectangleSize)
+        driver.get app_url_ad_v2
+        driver.findElement(By.id('username')).sendKeys('username')
+        driver.findElement(By.id('password')).sendKeys('password')
+        driver.findElement(By.id('log-in')).click()
+        eyes.checkWindow 'Check Ad'
         eyes.closeAsync()
     }
 
