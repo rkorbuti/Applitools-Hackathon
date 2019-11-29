@@ -36,7 +36,7 @@ class VisualAITests {
         runner = new ClassicRunner()
         eyes = new Eyes(runner)
         eyes.setLogHandler(new StdoutLogHandler(true))
-        if (System.getenv("APPLITOOLS_API_KEY") == null) {
+        if (System.getProperty("APPLITOOLS_API_KEY") == null) {
             println("\n\n**** Please set APPLITOOLS_API_KEY in your environment ***")
             System.exit(0)
         }
