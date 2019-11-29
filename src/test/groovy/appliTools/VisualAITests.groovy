@@ -52,15 +52,8 @@ class VisualAITests {
     }
 
     @Test
-    void 'Login Page Test for app version 1'() {
-        eyes.open driver, appName, 'Login Page Test for app version 1', rectangleSize
-        driver.get app_url_v1
-        eyes.checkWindow 'Login Page'
-    }
-
-    @Test
-    void 'Login Page Test for app version 2'() {
-        eyes.open driver, appName, 'Login Page Test for app version 2', rectangleSize
+    void 'Login Page Test'() {
+        eyes.open driver, appName, 'Login Page Test', rectangleSize
         driver.get app_url_v2
         eyes.checkWindow 'Login Page'
     }
@@ -70,7 +63,7 @@ class VisualAITests {
     void 'DDT login form test'(String username, String password) {
         String test_name = 'DDT login form test ' + getTestNameDDT(username, password)
         eyes.open driver, appName, test_name, rectangleSize
-        driver.get app_url_v1
+        driver.get app_url_v2
         signInWithCredentials username, password
         eyes.checkWindow test_name
     }
@@ -90,7 +83,7 @@ class VisualAITests {
     @Test
     void 'Canvas chart test'() {
         eyes.open driver, appName, 'Canvas chart test', rectangleSize
-        driver.get app_url_v1
+        driver.get app_url_v2
         signInWithCredentials 'username', 'password'
         driver.findElement(By.id('showExpensesChart')).click()
         eyes.checkWindow 'Default Chart'
@@ -99,18 +92,8 @@ class VisualAITests {
     }
 
     @Test
-    void 'Dynamic content test V1'() {
-        eyes.open driver, appName, 'Dynamic content test V1', rectangleSize
-        driver.get app_url_ad_v1
-        signInWithCredentials 'username', 'password'
-        eyes.checkWindow 'Check Ad'
-    }
-
-    @Test
-    void 'Dynamic content test V2'() {
-        batchInfo.setId(date)
-        eyes.setBatch(batchInfo)
-        eyes.open(driver, appName, 'Dynamic content test V2', rectangleSize)
+    void 'Dynamic content test'() {
+        eyes.open driver, appName, 'Dynamic content test', rectangleSize
         driver.get app_url_ad_v2
         signInWithCredentials 'username', 'password'
         eyes.checkWindow 'Check Ad'
