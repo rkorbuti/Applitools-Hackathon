@@ -13,10 +13,10 @@ class CanvasChartPage {
     }
 
     static void verifyChart() {
-
+        println 'not implemented'
     }
 
     static void verifyAddedDataInChart(int year) {
-
+        println 'not implemented'
     }
 }
