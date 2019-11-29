@@ -28,6 +28,7 @@ class VisualAITests {
     private WebDriver driver
     static final String date = new Date().getTime().toString()
     private BatchInfo batchInfo_DDT_test = new BatchInfo('DDT login form test ' + date)
+    private BatchInfo batchInfo_Login_test = new BatchInfo('Login page test ' + date)
     private RectangleSize rectangleSize = new RectangleSize(1200, 700)
     private String appName = 'AppliTools App'
     private final static String app_url_v1 = 'https://demo.applitools.com/hackathon.html'
@@ -51,6 +52,8 @@ class VisualAITests {
 
     @Test
     void 'Login Page Test for app version 1'() {
+        batchInfo_Login_test.setId(date)
+        eyes.setBatch(batchInfo_Login_test)
         eyes.open(driver, appName, 'Login Page Test for app version 1', rectangleSize)
         driver.get app_url_v1
         eyes.checkWindow 'Login Page'
@@ -59,6 +62,8 @@ class VisualAITests {
 
     @Test
     void 'Login Page Test for app version 2'() {
+        batchInfo_Login_test.setId(date)
+        eyes.setBatch(batchInfo_Login_test)
         eyes.open(driver, appName, 'Login Page Test version 2', rectangleSize)
         driver.get app_url_v2
         eyes.checkWindow 'Login Page'
