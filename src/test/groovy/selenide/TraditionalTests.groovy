@@ -64,6 +64,10 @@ class TraditionalTests {
     }
 
     @Test
+    /**
+     * This test can't be implemented using traditional approach because chart is rendered by chartjs as canvas and
+     * web driver can't retrieve any data from it. But this test is covered in VisualAITest class.
+     * */
     void 'Canvas chart test'() {
         open app_url_v1
         loginPage.proceedLogin()

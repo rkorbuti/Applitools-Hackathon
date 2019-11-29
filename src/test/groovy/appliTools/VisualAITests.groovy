@@ -20,16 +20,14 @@ import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@RunWith(DataProviderRunner.class)
+@RunWith(DataProviderRunner)
 class VisualAITests {
 
     private EyesRunner runner
     private Eyes eyes
     private WebDriver driver
     private static final String date = new Date().getTime().toString()
-    private BatchInfo batchInfo_DDT_test = new BatchInfo('DDT login form test ' + date)
-    private BatchInfo batchInfo_Login_test = new BatchInfo('Login page test ' + date)
-    private BatchInfo batchInfo_Dynamic_test = new BatchInfo('Dynamic content test ' + date)
+    private BatchInfo batchInfo = new BatchInfo('Hackathon')
     private RectangleSize rectangleSize = new RectangleSize(1200, 700)
     private String appName = 'AppliTools App'
     private final static String app_url_v1 = 'https://demo.applitools.com/hackathon.html'
@@ -49,96 +47,73 @@ class VisualAITests {
             eyes.setApiKey(System.getProperty('APPLITOOLS_API_KEY'))
         }
         driver = new ChromeDriver()
+        batchInfo.setId date
+        eyes.setBatch batchInfo
     }
 
     @Test
     void 'Login Page Test for app version 1'() {
-        batchInfo_Login_test.setId(date)
-        eyes.setBatch(batchInfo_Login_test)
-        eyes.open(driver, appName, 'Login Page Test for app version 1', rectangleSize)
+        eyes.open driver, appName, 'Login Page Test for app version 1', rectangleSize
         driver.get app_url_v1
         eyes.checkWindow 'Login Page'
-        eyes.closeAsync()
     }
 
     @Test
     void 'Login Page Test for app version 2'() {
-        batchInfo_Login_test.setId(date)
-        eyes.setBatch(batchInfo_Login_test)
-        eyes.open(driver, appName, 'Login Page Test for app version 2', rectangleSize)
+        eyes.open driver, appName, 'Login Page Test for app version 2', rectangleSize
         driver.get app_url_v2
         eyes.checkWindow 'Login Page'
-        eyes.closeAsync()
     }
 
     @Test
     @UseDataProvider('data_provider_login_form')
     void 'DDT login form test'(String username, String password) {
-        batchInfo_DDT_test.setId(date)
-        eyes.setBatch(batchInfo_DDT_test)
         String test_name = 'DDT login form test ' + getTestNameDDT(username, password)
         eyes.open driver, appName, test_name, rectangleSize
         driver.get app_url_v1
-        driver.findElement(By.id('username')).sendKeys(username)
-        driver.findElement(By.id('password')).sendKeys(password)
-        driver.findElement(By.id('log-in')).click()
+        signInWithCredentials username, password
         eyes.checkWindow test_name
-        eyes.closeAsync()
     }
 
     @Test
     void 'Table sort test'() {
-        eyes.setForceFullPageScreenshot(true)
-        eyes.setHideScrollbars(true)
-        eyes.open(driver, appName, 'Table sort test', rectangleSize)
+        eyes.setForceFullPageScreenshot true
+        eyes.setHideScrollbars true
+        eyes.open driver, appName, 'Table sort test', rectangleSize
         driver.get app_url_v2
-        driver.findElement(By.id('username')).sendKeys('username')
-        driver.findElement(By.id('password')).sendKeys('password')
-        driver.findElement(By.id('log-in')).click()
+        signInWithCredentials 'username', 'password'
         eyes.checkWindow 'Main Page unsorted'
         driver.findElement(By.id('amount')).click()
         eyes.checkWindow 'Main Page sorted'
-        eyes.closeAsync()
     }
 
     @Test
     void 'Canvas chart test'() {
-        eyes.open(driver, appName, 'Canvas chart test', rectangleSize)
+        eyes.open driver, appName, 'Canvas chart test', rectangleSize
         driver.get app_url_v1
-        driver.findElement(By.id('username')).sendKeys('username')
-        driver.findElement(By.id('password')).sendKeys('password')
-        driver.findElement(By.id('log-in')).click()
+        signInWithCredentials 'username', 'password'
         driver.findElement(By.id('showExpensesChart')).click()
         eyes.checkWindow 'Default Chart'
         driver.findElement(By.id('addDataset')).click()
         eyes.checkWindow '2019 Chart'
-        eyes.closeAsync()
     }
 
     @Test
     void 'Dynamic content test V1'() {
-        batchInfo_Dynamic_test.setId(date)
-        eyes.setBatch(batchInfo_Dynamic_test)
-        eyes.open(driver, appName, 'Dynamic content test V1', rectangleSize)
+        eyes.open driver, appName, 'Dynamic content test V1', rectangleSize
         driver.get app_url_ad_v1
-        driver.findElement(By.id('username')).sendKeys('username')
-        driver.findElement(By.id('password')).sendKeys('password')
-        driver.findElement(By.id('log-in')).click()
+        signInWithCredentials 'username', 'password'
         eyes.checkWindow 'Check Ad'
-        eyes.closeAsync()
     }
 
     @Test
     void 'Dynamic content test V2'() {
-        batchInfo_Dynamic_test.setId(date)
-        eyes.setBatch(batchInfo_Dynamic_test)
+        batchInfo.setId(date)
+        eyes.setBatch(batchInfo)
         eyes.open(driver, appName, 'Dynamic content test V2', rectangleSize)
         driver.get app_url_ad_v2
-        driver.findElement(By.id('username')).sendKeys('username')
-        driver.findElement(By.id('password')).sendKeys('password')
-        driver.findElement(By.id('log-in')).click()
+        signInWithCredentials 'username', 'password'
         eyes.checkWindow 'Check Ad'
-        eyes.closeAsync()
     }
 
     @DataProvider
@@ -153,6 +128,7 @@ class VisualAITests {
 
     @After
     void afterEach() {
+        eyes.closeAsync()
         driver.quit()
         eyes.abortIfNotClosed()
     }
@@ -167,5 +143,11 @@ class VisualAITests {
             testName = 'empty password'
         }
         testName
+    }
+
+    private void signInWithCredentials(String username, String password) {
+        driver.findElement(By.id('username')).sendKeys username
+        driver.findElement(By.id('password')).sendKeys password
+        driver.findElement(By.id('log-in')).click()
     }
 }
