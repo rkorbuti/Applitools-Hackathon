@@ -11,6 +11,7 @@ import com.tngtech.java.junit.dataprovider.DataProviderRunner
 import com.tngtech.java.junit.dataprovider.UseDataProvider
 import org.junit.After
 import org.junit.Before
+import org.junit.BeforeClass
 import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -26,14 +27,20 @@ class VisualAITests {
     private EyesRunner runner
     private Eyes eyes
     private WebDriver driver
-    String date = new Date().getTime().toString()
+    private static String date
     private BatchInfo batchInfo_DDT_test = new BatchInfo('DDT login form test ' + date)
+    private BatchInfo batchInfo_Login_test = new BatchInfo('Login page test ' + date)
     private RectangleSize rectangleSize = new RectangleSize(1200, 700)
     private String appName = 'AppliTools App'
     private final static String app_url_v1 = 'https://demo.applitools.com/hackathon.html'
     private final static String app_url_v2 = 'https://demo.applitools.com/hackathonV2.html'
     private final static String app_url_ad_v1 = 'https://demo.applitools.com/hackathon.html?showAd=true'
     private final static String app_url_ad_v2 = 'https://demo.applitools.com/hackathonV2.html?showAd=true'
+
+    @BeforeClass
+    static void beforeClass() {
+        date = new Date().getTime().toString()
+    }
 
     @Before
     void beforeEach() {
@@ -51,6 +58,8 @@ class VisualAITests {
 
     @Test
     void 'Login Page Test for app version 1'() {
+        batchInfo_DDT_test.setId(date)
+        eyes.setBatch(batchInfo_Login_test)
         eyes.open(driver, appName, 'Login Page Test for app version 1', rectangleSize)
         driver.get app_url_v1
         eyes.checkWindow 'Login Page'
@@ -59,6 +68,8 @@ class VisualAITests {
 
     @Test
     void 'Login Page Test for app version 2'() {
+        batchInfo_DDT_test.setId(date)
+        eyes.setBatch(batchInfo_Login_test)
         eyes.open(driver, appName, 'Login Page Test version 2', rectangleSize)
         driver.get app_url_v2
         eyes.checkWindow 'Login Page'
