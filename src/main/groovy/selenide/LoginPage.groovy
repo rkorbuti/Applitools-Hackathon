@@ -13,7 +13,6 @@ class LoginPage {
 
     static void verify() {
         assert $(".logo-w").displayed
-        assert $(".auth-header").displayed
         assert $("#username").displayed
         assert $("#password").displayed
         assert $x("//div[@class='pre-icon os-icon os-icon-user-male-circle']").displayed
@@ -24,5 +23,10 @@ class LoginPage {
         assert $x("//img[contains(@src,'social-icons/twitter')]").displayed
         assert $x("//img[contains(@src,'social-icons/facebook')]").displayed
         assert $x("//img[contains(@src,'social-icons/linkedin')]").displayed
+        verifyTitle()
+    }
+
+    static void verifyTitle() {
+        assert $(".auth-header").text == 'Login Form'
     }
 }

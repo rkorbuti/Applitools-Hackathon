@@ -22,6 +22,7 @@ class TraditionalTests {
     private LoginPage loginPage = new LoginPage()
 
     final static String app_url_v1 = 'https://demo.applitools.com/hackathon.html'
+    final static String app_url_v2 = 'https://demo.applitools.com/hackathonV2.html'
     final static String app_url_ad_v1 = 'https://demo.applitools.com/hackathon.html?showAd=true'
     final static String app_url_ad_v2 = 'https://demo.applitools.com/hackathonV2.html?showAd=true'
 
@@ -31,13 +32,15 @@ class TraditionalTests {
     }
 
     @Test
-    void 'Canvas chart test'() {
+    void 'Login page test'() {
         open app_url_v1
-        loginPage.proceedLogin()
-        canvasChartPage.clickCompareExpenses()
-        canvasChartPage.verifyChart()
-        canvasChartPage.clickShowDataForNextYear()
-        canvasChartPage.verifyAddedDataInChart(2019)
+        loginPage.verify()
+    }
+
+    @Test
+    void 'Login page test V2'() {
+        open app_url_v2
+        loginPage.verify()
     }
 
     @Test
@@ -51,26 +54,37 @@ class TraditionalTests {
     }
 
     @Test
-    @UseDataProvider('data_provider_entry_points')
-    void 'Dynamic content test'(String url) {
-        open url
-        loginPage.proceedLogin()
-        dynamicContentPage.verifyAds()
-    }
-
-    @Test
-    void 'Login page test'() {
-        open app_url_v1
-        loginPage.verify()
-    }
-
-    @Test
     void 'Table sort test'() {
         open app_url_v1
         loginPage.proceedLogin()
         tableSortPage.verifyAmountColumnIsUnsorted()
         tableSortPage.clickAmountHeader()
         tableSortPage.verifyAmountColumnIsSorted()
+        tableSortPage.verifyRowsData()
+    }
+
+    @Test
+    void 'Canvas chart test'() {
+        open app_url_v1
+        loginPage.proceedLogin()
+        canvasChartPage.clickCompareExpenses()
+        canvasChartPage.verifyChart()
+        canvasChartPage.clickShowDataForNextYear()
+        canvasChartPage.verifyAddedDataInChart(2019)
+    }
+
+    @Test
+    void 'Dynamic content test'() {
+        open app_url_ad_v1
+        loginPage.proceedLogin()
+        dynamicContentPage.verifyAds()
+    }
+
+    @Test
+    void 'Dynamic content test V2'() {
+        open app_url_ad_v2
+        loginPage.proceedLogin()
+        dynamicContentPage.verifyAds()
     }
 
     @DataProvider
@@ -80,14 +94,6 @@ class TraditionalTests {
                 ['username', ''],
                 ['', 'password'],
                 ['username', 'password'],
-        ]
-    }
-
-    @DataProvider
-    static Object[][] data_provider_entry_points() {
-        [
-                [app_url_ad_v1],
-                [app_url_ad_v2]
         ]
     }
 
