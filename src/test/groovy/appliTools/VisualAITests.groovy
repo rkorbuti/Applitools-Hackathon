@@ -64,7 +64,7 @@ class VisualAITests {
     void 'Login Page Test for app version 2'() {
         batchInfo_Login_test.setId(date)
         eyes.setBatch(batchInfo_Login_test)
-        eyes.open(driver, appName, 'Login Page Test version 2', rectangleSize)
+        eyes.open(driver, appName, 'Login Page Test for app version 2', rectangleSize)
         driver.get app_url_v2
         eyes.checkWindow 'Login Page'
         eyes.closeAsync()
@@ -82,6 +82,21 @@ class VisualAITests {
         driver.findElement(By.id('password')).sendKeys(password)
         driver.findElement(By.id('log-in')).click()
         eyes.checkWindow test_name
+        eyes.closeAsync()
+    }
+
+    @Test
+    void 'Table sort test'() {
+        eyes.setForceFullPageScreenshot(true)
+        eyes.setHideScrollbars(true)
+        eyes.open(driver, appName, 'Table sort test', rectangleSize)
+        driver.get app_url_v2
+        driver.findElement(By.id('username')).sendKeys('username')
+        driver.findElement(By.id('password')).sendKeys('password')
+        driver.findElement(By.id('log-in')).click()
+        eyes.checkWindow 'Main Page unsorted'
+        driver.findElement(By.id('amount')).click()
+        eyes.checkWindow 'Main Page sorted'
         eyes.closeAsync()
     }
 
