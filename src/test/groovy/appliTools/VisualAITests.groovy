@@ -64,6 +64,7 @@ class VisualAITests {
     @Test
     @UseDataProvider('data_provider_login_form')
     void 'DDT login form test'(String username, String password) {
+        batchInfo_DDT_test.setId('gl_login_test')
         eyes.setBatch(batchInfo_DDT_test)
         String test_name = 'DDT login form test ' + getTestNameDDT(username, password)
         eyes.open driver, appName, test_name, rectangleSize
