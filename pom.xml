@@ -11,7 +11,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <groovyVersion>2.4.9</groovyVersion>
-        <junitVersion>4.12</junitVersion>
+        <junitVersion>4.13.1</junitVersion>
         <junit.data.driven.provider.version>1.10.0</junit.data.driven.provider.version>
         <selenide.version>5.5.0</selenide.version>
     </properties>
